@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_4" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.4">
+	<Header>
+		<Application name="SkLearn2PMML package" version="0.91.1"/>
+		<Timestamp>2023-03-30T04:11:17Z</Timestamp>
+	</Header>
+	<MiningBuildTask>
+		<Extension name="repr">PMMLPipeline(steps=[('dt', DecisionTreeRegressor(max_depth=3))])</Extension>
+	</MiningBuildTask>
+	<DataDictionary>
+		<DataField name="vote_average" optype="continuous" dataType="double"/>
+		<DataField name="budget" optype="continuous" dataType="float"/>
+		<DataField name="Animation" optype="continuous" dataType="float"/>
+		<DataField name="Drama" optype="continuous" dataType="float"/>
+		<DataField name="Horror" optype="continuous" dataType="float"/>
+		<DataField name="Music" optype="continuous" dataType="float"/>
+		<DataField name="Documentary" optype="continuous" dataType="float"/>
+	</DataDictionary>
+	<TreeModel functionName="regression" algorithmName="sklearn.tree._classes.DecisionTreeRegressor" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+		<MiningSchema>
+			<MiningField name="vote_average" usageType="target"/>
+			<MiningField name="Drama"/>
+			<MiningField name="Animation"/>
+			<MiningField name="Documentary"/>
+			<MiningField name="Music"/>
+			<MiningField name="budget"/>
+			<MiningField name="Horror"/>
+		</MiningSchema>
+		<LocalTransformations>
+			<DerivedField name="double(Drama)" optype="continuous" dataType="double">
+				<FieldRef field="Drama"/>
+			</DerivedField>
+			<DerivedField name="double(Animation)" optype="continuous" dataType="double">
+				<FieldRef field="Animation"/>
+			</DerivedField>
+			<DerivedField name="double(Documentary)" optype="continuous" dataType="double">
+				<FieldRef field="Documentary"/>
+			</DerivedField>
+			<DerivedField name="double(Music)" optype="continuous" dataType="double">
+				<FieldRef field="Music"/>
+			</DerivedField>
+			<DerivedField name="double(budget)" optype="continuous" dataType="double">
+				<FieldRef field="budget"/>
+			</DerivedField>
+			<DerivedField name="double(Horror)" optype="continuous" dataType="double">
+				<FieldRef field="Horror"/>
+			</DerivedField>
+		</LocalTransformations>
+		<Node score="5.882716049382718">
+			<True/>
+			<Node score="5.532203389830508">
+				<SimplePredicate field="double(Drama)" operator="lessOrEqual" value="0.5"/>
+				<Node score="5.794939106901185">
+					<SimplePredicate field="double(Animation)" operator="lessOrEqual" value="0.5"/>
+					<Node score="5.240907941964576">
+						<SimplePredicate field="double(Documentary)" operator="lessOrEqual" value="0.5"/>
+					</Node>
+				</Node>
+				<Node score="6.219867549668878">
+					<SimplePredicate field="double(Music)" operator="lessOrEqual" value="0.5"/>
+				</Node>
+			</Node>
+			<Node score="6.9343023255813945">
+				<SimplePredicate field="double(budget)" operator="lessOrEqual" value="0.001871161861345172"/>
+				<Node score="5.7912985274432005">
+					<SimplePredicate field="double(Animation)" operator="lessOrEqual" value="0.5"/>
+				</Node>
+			</Node>
+			<Node score="6.391161327231133">
+				<SimplePredicate field="double(Horror)" operator="lessOrEqual" value="0.5"/>
+			</Node>
+		</Node>
+	</TreeModel>
+</PMML>
